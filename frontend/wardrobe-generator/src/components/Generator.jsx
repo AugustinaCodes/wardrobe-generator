@@ -1,4 +1,27 @@
+import { useState } from "react";
+import { useEffect } from "react";
+
 export default function Generator() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    async function getData() {
+      const url = `https://api.escuelajs.co/api/v1/products`;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Response statys: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(result);
+        console.log(result[0].images[0]);
+        setImages(result);
+      } catch (error) {}
+      console.log(error.message);
+    }
+    getData();
+  }, []);
+
   return (
     <div
       id="carouselExampleIndicators"
@@ -16,13 +39,25 @@ export default function Generator() {
       </ol>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img class="d-block w-100" src="..." alt="First slide" />
+          <img
+            class="d-block w-100"
+            src={`${images[0]?.images[0]}`}
+            alt="First slide"
+          />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="..." alt="Second slide" />
+          <img
+            class="d-block w-100"
+            src={`${images[1]?.images[0]}`}
+            alt="Second slide"
+          />
         </div>
         <div class="carousel-item">
-          <img class="d-block w-100" src="..." alt="Third slide" />
+          <img
+            class="d-block w-100"
+            src={`${images[2]?.images[0]}`}
+            alt="Third slide"
+          />
         </div>
       </div>
       <a
