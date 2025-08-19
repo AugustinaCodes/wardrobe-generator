@@ -1,3 +1,7 @@
 export default function GeneratorTitle() {
-  return <div class="m-5">Choose Top</div>;
+  return (
+    <button type="button" class="btn btn-primary btn-lg m-5">
+      Choose Top
+    </button>
+  );
 }

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { useEffect } from "react";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export default function Generator() {
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getData() {
@@ -16,6 +19,7 @@ export default function Generator() {
         console.log(result);
         console.log(result[0].images[0]);
         setImages(result);
+        setLoading(false);
       } catch (error) {}
       console.log(error.message);
     }
@@ -28,6 +32,7 @@ export default function Generator() {
       class="carousel slide"
       data-ride="carousel"
     >
+      {loading && <Skeleton count={2} />}
       <ol class="carousel-indicators">
         <li
           data-target="#carouselExampleIndicators"
